@@ -12,4 +12,4 @@ def filter_by_state(data: list[dict[str, str]], state: str = "EXECUTED") -> list
 
 def sort_by_date(date: list[dict[str, str]], reverse: bool = True) -> list[dict[str, str]]:
     """Функция возвращает новый список, отсортированный по дате"""
-    return sorted(date, key=lambda x: datetime.fromisoformat(x["date"]))
+    return sorted(date, key=lambda x: datetime.fromisoformat(x["date"]), reverse=reverse)
