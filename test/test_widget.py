@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from src.widget import get_date, mask_account_card
@@ -14,12 +16,12 @@ from src.widget import get_date, mask_account_card
         ("My Super Card 9876543210987654", "My Super Card 9876 54** **** 7654"),
     ],
 )
-def test_mask_account_card_valid(raw, expected):
+def test_mask_account_card_valid(raw: str, expected: str) -> None:
     assert mask_account_card(raw) == expected
 
 
 @pytest.mark.parametrize("bad_value", ["1234567812345", "12345678123456789", "1234 5678 1234 5678"])
-def test_get_mask_account_card_value_error(bad_value):
+def test_get_mask_account_card_value_error(bad_value: str) -> None:
     with pytest.raises(ValueError):
         mask_account_card(bad_value)
 
@@ -36,11 +38,11 @@ def test_get_mask_account_card_value_error(bad_value):
         ("2024-03-11T02:26:18Z", "11.03.2024"),
     ],
 )  # 'Z' (UTC)
-def test_get_date(raw, expected):
+def test_get_date(raw: str, expected: str) -> None:
     assert get_date(raw) == expected
 
 
 @pytest.mark.parametrize("bad", [None, 123, 12.34, [], {}])
-def test_get_date_invalid_type(bad):
+def test_get_date_invalid_type(bad: Any) -> None:
     with pytest.raises(TypeError):
         get_date(bad)

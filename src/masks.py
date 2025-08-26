@@ -1,7 +1,7 @@
 from typing import Any
 
 
-def get_mask_card_number(card_number: int) -> Any:
+def get_mask_card_number(card_number: int | str) -> Any:
     """Функция принимает на вход номер карты и возвращает ее маску."""
 
     card_number_str = str(card_number)
@@ -15,7 +15,7 @@ def get_mask_card_number(card_number: int) -> Any:
     return masked_card
 
 
-def get_mask_account(account_number: int) -> Any:
+def get_mask_account(account_number: int | str) -> Any:
     """Функция принимает на вход номер счета и возвращает его маску."""
 
     account_number_str = str(account_number)

@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.fixture
-def sample_data_mixed():
+def sample_data_mixed() -> list[dict[str, str]]:
     """Список со смешанными статусами и датами; часть элементов без 'state'."""
     return [
         {"id": "1", "state": "EXECUTED", "date": "2024-12-31"},
