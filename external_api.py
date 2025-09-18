@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # подтянет EXCHANGE_RATES_API_KEY из .env, если есть
 
-api_url = "https://api.apilayer.com/exchangerates_data/latest"
+api_url = "https://api.apilayer.com/exchangerates_data/convert"
 
 
 def get_rate_to_rub(currency: str) -> float:
@@ -27,7 +27,9 @@ def get_rate_to_rub(currency: str) -> float:
     resp = requests.get(api_url, headers=headers, params=params, timeout=10)
     resp.raise_for_status()
     data = resp.json()
-    rate = data.get("rates", {}).get("RUB")
+
+    rate = data.get("result")
     if rate is None:
-        raise RuntimeError(f"No RUB rate for base={currency}")
+        raise RuntimeError(f"No conversion result for {currency} RUB")
+
     return float(rate)

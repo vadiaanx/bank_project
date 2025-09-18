@@ -1,5 +1,8 @@
 import json
 import os
+from json import JSONDecodeError
+
+from requests import RequestException
 
 from external_api import get_rate_to_rub
 
@@ -17,11 +20,13 @@ def load_transactions(file_path):
                 return data
             else:
                 return []
-    except Exception:
+    except FileNotFoundError:
+        return []
+    except JSONDecodeError:
         return []
 
 
-def amount_in_rub(transaction: dict[str, any]) -> float:
+def amount_in_rub(transaction: dict) -> float:
     """
     Принимает транзакцию в формате вашего JSON и возвращает сумму в рублях (float).
     - Если currency.code == USD/EUR — конвертируем по текущему курсу.
@@ -44,10 +49,10 @@ def amount_in_rub(transaction: dict[str, any]) -> float:
     if currency in ("USD", "EUR"):
         try:
             rate = get_rate_to_rub(currency)
-            return amount * rate
-        except Exception:
+            return float(amount * rate)
+        except (RequestException, RuntimeError, ValueError):
             # В учебных целях не роняем код — если курс не получили, вернём 0.0
             return 0.0
 
     # Всё остальное считаем рублями
-    return amount
+    return float(amount)
