@@ -23,7 +23,7 @@ def test_read_transactions_from_csv_returns_list_of_dicts(mock_read_csv):
     result = read_transactions_from_csv("transactions.csv")
 
     # Проверяем, что read_csv вообще вызывался с нужным аргументом
-    mock_read_csv.assert_called_once_with("transactions.csv")
+    mock_read_csv.assert_called_once_with("transactions.csv", sep=";")
 
     # Проверяем формат результата
     assert isinstance(result, list)

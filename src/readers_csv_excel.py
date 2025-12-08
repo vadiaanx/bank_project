@@ -6,7 +6,7 @@ import pandas as pd
 def read_transactions_from_csv(csv_path: str) -> list[dict[str, Any]]:
     """ Открывает файл csv, читает данные как таблицу, превращает таблицу в список словарей """
 
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, sep=";")
     return df.to_dict(orient="records")
 
 
