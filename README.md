@@ -119,7 +119,41 @@ for card in card_number_generator(1, 3):
 # 0000 0000 0000 0002
 # 0000 0000 0000 0003
 ```
+#### 4. Поддерживаемые форматы данных
+
+Проект умеет считывать финансовые операции из разных источников:
+
+- JSON-файл с транзакциями;
+- CSV-файл (см. `transactions.csv`);
+- Excel-файл в формате `.xlsx` (см. `transactions_excel.xlsx`).
+
+Для чтения CSV и Excel используется библиотека `pandas`.
+
+Примеры использования:
+
+```python
+from src.readers_csv_excel import (
+    read_transactions_from_csv,
+    read_transactions_from_excel,
+)
+
+transactions_csv = read_transactions_from_csv("data/transactions.csv")
+transactions_xlsx = read_transactions_from_excel("data/transactions_excel.xlsx")
+```
 
 🧪 Тестирование
 
 Для функций модуля написаны автоматические тесты (см. `test/test_generators.py`)
+
+###  2025-09-10
+#### Added
+- Новый модуль `decorators`:
+  - Декоратор `log` для логирования выполнения функций.
+  - Поддержка логирования как в **консоль**, так и в **файл** через параметр `filename`.
+  - Логирование ошибок с указанием типа исключения и входных аргументов.
+
+- Юнит-тесты для проверки корректной работы декоратора:
+  - Тестирование успешного вызова функций.
+  - Тестирование ошибок (например, `ZeroDivisionError`).
+  - Проверка работы как с консольным выводом, так и с записью в файл.
+- Поддержка отчётов покрытия тестов (pytest + pytest-cov, HTML-репорт).
